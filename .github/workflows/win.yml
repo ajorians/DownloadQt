@@ -20,7 +20,7 @@ jobs:
       - name: Check out Qt repo
         uses: actions/checkout@v4
         with:
-          repository: git://code.qt.io/qt/qt5.git # Note this is also use for Qt6; see: https://wiki.qt.io/Building_Qt_6_from_Git
+          repository: https://code.qt.io/qt/qt5.git # Note this is also use for Qt6; see: https://wiki.qt.io/Building_Qt_6_from_Git
           path: './qt6'
       - name: Switch To Dev Branch # By default already but just in case
         shell: cmd
