@@ -6,22 +6,13 @@ env:
   OutputBranchName: release_143/Qt6.7.0
   
 jobs:
-  Prebuild-Boost:
+  Prebuild-Qt:
     runs-on: windows-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Initialize mandatory git config
-        run: |
-          git config user.name "A.J. Orians"
-          git config user.email ajorians@gmail.com
-      - name: Create release branch
-        run: git checkout -b $env:OutputBranchName
       - name: Check out Qt repo
-        uses: actions/checkout@v4
-        with:
-          repository: https://code.qt.io/qt/qt5.git # Note this is also use for Qt6; see: https://wiki.qt.io/Building_Qt_6_from_Git
-          path: './qt6'
+        shell: cmd
+        run: | 
+          git clone git://code.qt.io/qt/qt5.git qt6 # Note this is also use for Qt6; see: https://wiki.qt.io/Building_Qt_6_from_Git
       - name: Switch To Dev Branch # By default already but just in case
         shell: cmd
         run: |
