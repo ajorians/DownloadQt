@@ -38,7 +38,7 @@ jobs:
         run: |
           cd qt6
           cd qt6-build
-          cmake --build .
+          cmake --build . --parallel 4
           dir
       - name: Install Qt
         shell: cmd
