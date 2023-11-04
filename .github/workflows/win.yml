@@ -25,7 +25,7 @@ jobs:
         run: |
           cd qt6
           perl init-repository
-      - name: Build Qt
+      - name: Configure Qt
         shell: cmd
         run: |
           cd qt6
@@ -33,7 +33,19 @@ jobs:
           mkdir output
           cd qt6-build
           ..\configure.bat -prefix ../output -shared -openssl-runtime -- -GNinja
+      - name: Build Qt
+        shell: cmd
+        run: |
+          cd qt6
+          cd qt6-build
           cmake --build .
           dir
+      - name: Install Qt
+        shell: cmd
+        run: |
+          cd qt6
+          cd qt6-buiuld
           cmake --install .
-          dir ../output
+          cd ../output
+          dir
+          dir *
