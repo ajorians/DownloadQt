@@ -22,16 +22,17 @@ jobs:
       - name: Init Repository
         shell: cmd
         run: |
-          dir
           cd qt6
           perl init-repository
       - name: Build Qt
         shell: cmd
         run: |
-          dir
+          cd qt6
           mkdir qt6-build
+          mkdir output
           cd qt6-build
-          .\configure.bat -prefix ./output
+          ..\configure.bat -prefix ../output -debug-and-release -shared -openssl-runtime
           cmake --build .
           dir
           cmake --install .
+          dir ../output
