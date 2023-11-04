@@ -9,6 +9,7 @@ jobs:
   Prebuild-Qt:
     runs-on: windows-latest
     steps:
+      - run: choco install ninja
       - name: Check out Qt repo
         shell: cmd
         run: | 
