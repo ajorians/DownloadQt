@@ -32,7 +32,7 @@ jobs:
           mkdir qt6-build
           mkdir output
           cd qt6-build
-          ..\configure.bat -prefix ../output -shared -openssl-runtime -- -GNinja
+          ..\configure.bat -prefix ../output -shared -debug -openssl-runtime -- -GNinja
       - name: Build Qt
         shell: cmd
         run: |
@@ -47,5 +47,5 @@ jobs:
           cd qt6-build
           cmake --install .
           cd ../output
-          dir
-          dir *
+          dir bin
+          dir include
