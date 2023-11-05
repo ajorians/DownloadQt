@@ -44,7 +44,7 @@ jobs:
         shell: cmd
         run: |
           cd qt6
-          cd qt6-buiuld
+          cd qt6-build
           cmake --install .
           cd ../output
           dir
