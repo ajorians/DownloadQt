@@ -1,4 +1,4 @@
-name: 'Qt Prebuild With MSVC'
+name: 'Qt Debug and Release With MSVC'
 
 on: workflow_dispatch
 
