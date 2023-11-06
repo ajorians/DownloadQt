@@ -20,7 +20,7 @@ jobs:
         shell: cmd
         run: |
           cd qt6
-          git switch v6.7.0
+          git switch v6.6.0
       - name: Init Repository
         shell: cmd
         run: |
