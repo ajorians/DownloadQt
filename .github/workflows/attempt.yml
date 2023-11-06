@@ -11,16 +11,16 @@ jobs:
     steps:
       - run: choco install ninja
       - run: choco install cmake
+      # Note repo is named qt5 but is also used for Qt6; see: https://wiki.qt.io/Building_Qt_6_from_Git
       - name: Check out Qt repo
         shell: cmd
         run: | 
-          # Note this is also used for Qt6; see: https://wiki.qt.io/Building_Qt_6_from_Git
           git clone git://code.qt.io/qt/qt5.git qt6
-      - name: Switch To Dev Branch # By default already but just in case
+      - name: Switch To release Branch
         shell: cmd
         run: |
           cd qt6
-          git switch dev
+          git switch v6.7.0
       - name: Init Repository
         shell: cmd
         run: |
