@@ -20,7 +20,7 @@ jobs:
         shell: cmd
         run: |
           cd qt6
-          git checkout tags/v6.6.0
+          git checkout tags/v6.8.1
       - name: Init Repository
         shell: cmd
         run: |
