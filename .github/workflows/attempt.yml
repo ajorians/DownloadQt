@@ -33,7 +33,7 @@ jobs:
           mkdir qt6-build
           mkdir output
           cd qt6-build
-          ..\configure.bat -debug-and-release -developer-build -confirm-license -opensource -shared -openssl-runtime -opengl -optimized-tools -make tools -nomake examples -nomake tests -prefix ../output
+          ..\configure.bat -debug-and-release -developer-build -confirm-license -opensource -shared -openssl-linked -opengl -optimized-tools -make tools -nomake examples -nomake tests -prefix ../output
       - name: Build Qt
         shell: cmd
         run: |
