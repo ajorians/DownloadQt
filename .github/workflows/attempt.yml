@@ -3,7 +3,7 @@ name: 'Qt Debug and Release With MSVC'
 on: workflow_dispatch
 
 env:
-  OutputBranchName: release_143/Qt6.7.0
+  OutputBranchName: release_145/Qt6.10.1
   
 jobs:
   Prebuild-Qt:
@@ -20,7 +20,7 @@ jobs:
         shell: cmd
         run: |
           cd qt6
-          git checkout tags/v6.8.1
+          git checkout tags/v6.10.1
       - name: Init Repository
         shell: cmd
         run: |
