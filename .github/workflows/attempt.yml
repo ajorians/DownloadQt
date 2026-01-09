@@ -25,7 +25,7 @@ jobs:
         shell: cmd
         run: |
           cd qt6
-          perl init-repository
+          .\init-repository.bat
       - name: Configure Qt
         shell: cmd
         run: |
