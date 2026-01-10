@@ -43,30 +43,30 @@ jobs:
       - name: Configure Qt 6 Build
         working-directory: qt6-build
         run: |
-          ..\qt6\configure.bat -prefix ../output -release -opensource -confirm-license -nomake tests -nomake examples
-
-#      - name: Configure Qt
-#        shell: cmd
-#        run: |
-#          mkdir qt6-build
-#          mkdir output
-#          cd qt6-build
-#          ..\qt6\configure.bat -debug-and-release -developer-build -confirm-license -opensource -shared -openssl-linked -opengl -optimized-tools -make tools -nomake examples -nomake tests -prefix ../output
+          ..\qt6\configure.bat -prefix ../output -debug-and-release -force-debug-info -opensource -confirm-license -nomake tests -nomake examples
+          
       - name: Build Qt
         working-directory: qt6-build
         run: |
           cmake --build . --parallel
-      - name: Install Qt
+
+      - name: Install Qt (Release)
         working-directory: qt6-build
         run: |
-          cmake --install .
+          cmake --install . --config Release
+
+      - name: Install Qt (Debug)
+        working-directory: qt6-build
+        run: |
+          cmake --install . --config Debug
+          
       - name: Look at files
         shell: cmd
         run: |
           cd output
           dir
           dir *
-      - name: Upload Built Qt Artifacts (Optional)
+      - name: Upload Built Qt Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: Built-Qt6-Windows
