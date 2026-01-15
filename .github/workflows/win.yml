@@ -1,51 +1,62 @@
-name: 'Qt Prebuild With MSVC'
+name: 'Qt Release Build With MSVC'
 
 on: workflow_dispatch
 
 env:
-  OutputBranchName: release_143/Qt6.7.0
+  OutputBranchName: release_145/Qt6.10.1
   
 jobs:
   Prebuild-Qt:
     runs-on: windows-latest
     steps:
       - run: choco install ninja
+      - run: choco install cmake
+      - name: Install Dependencies (Perl/Python)
+        run: choco install strawberryperl -y
+        
+      - name: Set up Visual Studio Environment
+        uses: ilammy/msvc-dev-cmd@v1
+        
+      # Note repo is named qt5 but is also used for Qt6; see: https://wiki.qt.io/Building_Qt_6_from_Git
       - name: Check out Qt repo
         shell: cmd
         run: | 
-          # Note this is also used for Qt6; see: https://wiki.qt.io/Building_Qt_6_from_Git
           git clone git://code.qt.io/qt/qt5.git qt6
-      - name: Switch To Dev Branch # By default already but just in case
+          
+      - name: Switch To release tag Branch
         shell: cmd
         run: |
           cd qt6
-          git switch dev
+          git checkout tags/v6.10.1
+          
       - name: Init Repository
         shell: cmd
         run: |
           cd qt6
-          perl init-repository
-      - name: Configure Qt
+          .\init-repository.bat
+
+      - name: Make build directory
         shell: cmd
         run: |
-          cd qt6
           mkdir qt6-build
-          mkdir output
-          cd qt6-build
-          ..\configure.bat -prefix ../output -shared -debug -openssl-runtime -- -GNinja
+
+      - name: Configure Qt 6 Build
+        working-directory: qt6-build
+        run: |
+          ..\qt6\configure.bat -prefix ../output -release -opensource -confirm-license -nomake tests -nomake examples
+
       - name: Build Qt
-        shell: cmd
+        working-directory: qt6-build
         run: |
-          cd qt6
-          cd qt6-build
-          cmake --build . --parallel 4
-          dir
+          cmake --build . --parallel
       - name: Install Qt
-        shell: cmd
+        working-directory: qt6-build
         run: |
-          cd qt6
-          cd qt6-build
           cmake --install .
-          cd ../output
-          dir bin
-          dir include
+
+      - name: Upload Built Qt Artifacts (Optional)
+        uses: actions/upload-artifact@v4
+        with:
+          name: Built-Qt6-Windows
+          path: output
+          retention-days: 7
